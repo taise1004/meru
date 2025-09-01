@@ -34,11 +34,6 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 
   test "root should render the home page" do
     get root_url
-    root_body = @response.body  # ルートのレスポンスを保存
-
-    get home_url
-    home_body = @response.body  # ホームのレスポンスを保存
-
-    assert_equal root_body, home_body  # 両者が同じHTMLか確認
+    assert_template 'static_pages/home'
   end
 end

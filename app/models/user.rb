@@ -13,5 +13,10 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: { value: true, message: "パスワードを入力してください" },
                        length: { minimum: 6, message: "パスワードは6文字以上で入力してください" }
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
 end
 
